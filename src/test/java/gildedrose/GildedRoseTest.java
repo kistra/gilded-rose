@@ -11,7 +11,46 @@ class GildedRoseTest {
         Item[] items = new Item[]{ new Item("foo", 0, 0) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
-        assertEquals("fixme", app.items[0].name);
+        assertEquals("foo", app.items[0].name);
     }
 
+    @Test
+    void sell_date_has_passed() {
+        Item[] items = new Item[]{ new Item("foo", 0, 4) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(2, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfItemIsNeverNegative() {
+        Item[] items = new Item[]{ new Item("foo", 0, 0) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    void agedBrieIncreasesInQualityTheOlderItGets() {
+        Item[] items = new Item[]{ new Item("Aged Brie", 5, 0) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(1, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfAgedBrieIsNeverMoreThan50() {
+        Item[] items = new Item[]{ new Item("Aged Brie", 5, 50) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(50, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfAnyOtherItemIsNeverMoreThan50() {
+        Item[] items = new Item[]{ new Item("Any other item", 5, 50) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(49, app.items[0].quality);
+    }
 }
