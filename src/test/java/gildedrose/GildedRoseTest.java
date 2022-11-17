@@ -71,10 +71,43 @@ class GildedRoseTest {
     }
 
     @Test
-    void qualityOfBackstagePassesIncreasesForTwoWhenSellInApproaches() {
+    void qualityOfBackstagePassesIncreasesForThreeWhenSellInApproaches() {
         Item[] items = new Item[]{ new Item("Backstage passes to a TAFKAL80ETC concert", 5, 30) };
         GildedRose app = new GildedRose(items);
         app.updateQuality();
         assertEquals(33, app.items[0].quality);
     }
+
+    @Test
+    void qualityOfBackstagePassesIncreasesForTwoWhenSellInApproaches() {
+        Item[] items = new Item[]{ new Item("Backstage passes to a TAFKAL80ETC concert", 10, 30) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(32, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfBackstagePassesIncreasesForOneWhenSellInApproaches() {
+        Item[] items = new Item[]{ new Item("Backstage passes to a TAFKAL80ETC concert", 15, 30) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(31, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfBackstagePassesDecreasesToZeroAfterSellIn() {
+        Item[] items = new Item[]{ new Item("Backstage passes to a TAFKAL80ETC concert", 0, 30) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality);
+    }
+
+    @Test
+    void qualityOfConjuredItemsDegradesTwiceAsFast() {
+        Item[] items = new Item[]{ new Item("Conjured Mana Cake", 5, 30) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(28, app.items[0].quality);
+    }
+
 }
